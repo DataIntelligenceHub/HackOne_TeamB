@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta http-equiv='Cache-Control' content='no-cache, no-store, must-revalidate' />
+    <meta http-equiv='Pragma' content='no-cache' />
+    <meta http-equiv='Expires' content='0' />
+    <meta charset='UTF-8' />
+    <meta name='google' content='notranslate'>
+    <meta http-equiv='Content-Language' content='en' />
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <title>bootstrap-tab-modal</title>
+
+    <script src='https://code.jquery.com/jquery-2.2.4.min.js' integrity='sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44='   crossorigin='anonymous'></script>
+
+    <script src='https://code.jquery.com/ui/1.12.0-rc.2/jquery-ui.min.js' integrity='sha256-55Jz3pBCF8z9jBO1qQ7cIf0L+neuPTD1u7Ytzrp2dqo='   crossorigin='anonymous'></script>
+
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' integrity='sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7' crossorigin='anonymous'>
+
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' integrity='sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS' crossorigin='anonymous'></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+
+    <script src='https://rawgit.com/aino/throbber.js/master/throbber.js' type='text/javascript' charset='utf-8'></script>
+
+    <script src='../bootstrap-tab-modal.js' type='text/javascript' charset='utf-8'></script>
+    <link rel='stylesheet' href='../bootstrap-tab-modal.css' type='text/css' media='screen' />
+
+    <style>
+      body {
+        font-family: 'Lato', sans-serif !important;
+        text-align: center;
+        padding-top: 100px;
+      }
+
+      body > .tab-modal .tab-modal-header {
+        font-size: 30px;
+        font-weight: lighter;
+      }
+
+      .default {
+        min-height: 300px;
+        padding-top: 100px;
+        font-size: 20px;
+      }
+
+      .second {
+        min-height: 400px;
+        padding-top: 100px;
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h4>Click the button to display the tabbed modal:</h4>
+    <button type='button' id='demo' class='btn btn-primary btn-lg'>
+      Launch tabbed modal
+    </button>
+
+    <script>
+      $('#demo').tabModal({
+        header: 'Tabbed Modal',
+        tabs: {
+          first: {
+            label: 'Default Tab',
+            active: true,
+            showTab: function() {
+              $('#demo').tabModal('setTabContent', 'first', "<div class='default'>This is the content of the default tab. Click on other tabs to view their contents.</div>");
+            }
+          }, second: {
+            label: 'Second Tab',
+            showTab: function() {
+              setTimeout( function() {
+                $('#demo').tabModal('setTabContent', 'second', "<div class='second'>This is the content of the second tab. Click on other tabs to view their contents.</div>");
+              }, 500); // just a delay for demonstrating the built-in throbber
+            }
+          }, third: {
+            label: 'Third Tab',
+            showTab: function() {
+              setTimeout( function() {
+                $('#demo').tabModal('setTabContent', 'third', '<h3>Third!</h3>');
+              }, 500); // just a delay for demonstrating the built-in throbber
+            }
+          }, fourth: {
+            label: 'Fourth Tab',
+            showTab: function() {
+              setTimeout( function() {
+                $demo = $('#demo');
+                $demo.tabModal('setTabContent', 'fourth', '<h3>Fourth!</h3>');
+                $demo.tabModal('markForReload', 'fourth');
+              }, 500); // just a delay for demonstrating the built-in throbber
+            }
+          },
+        }
+      });
+      $('.btn-primary').click( function() {
+        $('#demo').tabModal('show');
+      });
+    </script>
+  </body>
+</html>

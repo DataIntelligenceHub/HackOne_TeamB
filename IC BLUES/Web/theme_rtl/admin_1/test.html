@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" type="text/javascript"></script>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var jsondata = [
+        {"NameStore":"imtiaze KPT Karachi","Latitude":"24.831133","Longitude":"67.080389"},
+        {"NameStore":"imtiaz Nazimabad Karachi","Latitude":"24.918770","Longitude":"67.032109"},
+        {"NameStore":"imtiaz Shahra-e-faisal Karachi","Latitude":"24.870864","Longitude":"67.090331"},
+        {"NameStore":"imtiaz Bahudurabad Karachi","Latitude":"24.870864","Longitude":"67.090331"},
+        {"NameStore":"imtiaz PAF Karachi","Latitude":"24.8696185","Longitude":"67.089794"},
+        {"NameStore":"diamond GoleMarket Karachi","Latitude":"24.9141401","Longitude":"67.0244364"},
+        {"NameStore":"diamond jamat khana Karachi","Latitude":"24.8839479","Longitude":"67.0348337"},
+        {"NameStore":"FamilySuperStore Karachi","Latitude":"24.9117441","Longitude":"67.0640856"},
+        {"NameStore":"Gulshan Super Store Karachi","Latitude":"24.9117453","Longitude":"67.0742334"},
+        {"NameStore":"Nooristan Super Mart Karachi","Latitude":"25.017864","Longitude":"67.1295083"},
+        {"NameStore":"Marhaba Super Mart Karachi","Latitude":"24.9236016","Longitude":"67.0581129"},
+        {"NameStore":"Noor Super Store Karachi","Latitude":"24.8513464","Longitude":"67.0512472"},
+        {"NameStore":"Marhaba Super Mart Karachi","Latitude":"24.9092825","Longitude":"67.1318802"},
+        {"NameStore":"Shahani Super Store Karachi","Latitude":"24.8319578","Longitude":"67.032328"},
+        {"NameStore":"K K Super Market Karachi","Latitude":"24.932661","Longitude":"67.0689151"},
+        {"NameStore":"Shazz Super Market Karachi","Latitude":"24.8987651","Longitude":"67.1093941"},
+        {"NameStore":"Needz Supermarket Lahore","Latitude":"24.911426","Longitude":"67.0682814"},
+        {"NameStore":"Vital Stores (Pvt ) Ltd Lahore","Latitude":"31.4863258","Longitude":"74.2486382"},
+        {"NameStore":"Hafiz Super Store Lahore","Latitude":"31.4863258","Longitude":"74.2486382"},
+        {"NameStore":"Naheed Super Market Karachi","Latitude":"24.877748","Longitude":"67.068559"},
+        {"NameStore":"Hyperstar Lahore Fortress","Latitude":"31.535031","Longitude":"74.363329"},
+        {"NameStore":"Hyperstar Lahore Emporium","Latitude":"31.467349","Longitude":"74.266017"},
+        {"NameStore":"Hyperstar Islamabad","Latitude":"33.520607","Longitude":"73.158058"},
+        {"NameStore":"Agha's Super Market","Latitude":"24.828353","Longitude":"67.035538"},
+        {"NameStore":"Metro Super Market Islamabad","Latitude":"33.639676","Longitude":"73.025754"},
+        {"NameStore":"Metro Super Market Lahore","Latitude":"31.466941","Longitude":"74.23532"},
+        {"NameStore":"Metro Supermarket Gulshan Karachi","Latitude":"24.922248","Longitude":"67.105104"},
+        {"NameStore":"Metro Supermarket Monghopir Karachi","Latitude":"24.919833","Longitude":"67.015556"},
+        {"NameStore":"Metro Supermarket Saddar Karachi","Latitude":"24.832766","Longitude":"67.034591"},
+        {"NameStore":"Farid's Ocean Tower Karachi","Latitude":"24.824005","Longitude":"67.035932"},
+        {"NameStore":"Garden Super Market Karachi","Latitude":"24.884766","Longitude":"67.029923"},
+        {"NameStore":"Hydri Super Market Karachi","Latitude":"24.929206","Longitude":"67.039958"},
+        {"NameStore":"Chase value centre khalid bin waleed road Karachi","Latitude":"24.872501","Longitude":"67.056048"},
+        {"NameStore":"Chase shaheed e millat road Karachi","Latitude":"24.883215","Longitude":"67.059085"},
+        {"NameStore":"Chase up civic center flyover Karachi","Latitude":"24.902275","Longitude":"67.070606"},
+        {"NameStore":"Chase up university road Karachi","Latitude":"24.91698","Longitude":"67.096398"},
+        {"NameStore":"Chase value center rashid minhas road Karachi","Latitude":"24.911662","Longitude":"67.104372"},
+        {"NameStore":"Chase up Multan","Latitude":"30.2293535","Longitude":"71.4782136"},
+        {"NameStore":"Chase value center Lahore","Latitude":"31.5210414","Longitude":"74.2917151"},
+        {"NameStore":"Chase value center Islamabad","Latitude":"24.911662","Longitude":"67.104372"},
+        {"NameStore":"EBCO super market Karachi","Latitude":"24.827","Longitude":"67.037965"},
+        {"NameStore":"Saverz super market Karachi","Latitude":"24.912875","Longitude":"67.080246"},
+        {"NameStore":"Tee-emm Mart Karachi","Latitude":"24.777929","Longitude":"67.090641"},
+        {"NameStore":"Tee-emm Mart II Karachi","Latitude":"24.794475","Longitude":"67.063042"},
+        {"NameStore":"Faheem Super Store Lahore","Latitude":"31.5005991","Longitude":"74.2640593"}];
+     console.log(jsondata[0].NameStore);
+
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2,
+          center: new google.maps.LatLng(2.8,-187.3),
+          mapTypeId: 'terrain'
+        });
+
+        // Create a <script> tag and set the USGS URL as the source.
+        var script = document.createElement('script');
+        // This example uses a local copy of the GeoJSON stored at
+        // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
+        script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
+      }
+
+      // Loop through the results array and place a marker for each
+      // set of coordinates.
+      window.eqfeed_callback = function(results) {
+
+
+        for (var i = 0; i < 45; i++) {
+          var coords = results.features[i].geometry.coordinates;
+          var latLng = new google.maps.LatLng(jsondata[i].Latitude,jsondata[i].Longitude);//coords[1],coords[0]);
+          var Title = jsondata[i].NameStore;
+          var marker = new google.maps.Marker({
+
+            position: latLng,
+            map: map,
+            title: Title
+          });
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCF3YibPi4YDjtrDbh265I60_uYxevDNRk&callback=initMap">
+    </script>
+  </body>
+</html>
